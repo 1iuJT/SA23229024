@@ -1,0 +1,20 @@
+Package: SA23229024
+Type: Package
+Title: This package provides Several R and Rcpp function for the 'Statistical Computing'
+Version: 1.0
+Date: 2023-12-06
+Author: Liu jingtao 
+Maintainer: Liu jingtao <jingt-liu@mail.ustc.edu.cn>
+Description: Several R and Rcpp function are included in this package for the 'Statistical Computing' course in USTC.
+License: GPL (>= 2)
+Imports: Rcpp, ggplot2
+Suggests: rmarkdown, knitr, testthat (>= 3.0.0), DAAG, boot, bootstrap,
+        coda, lpSolve, microbenchmark, plyr
+VignetteBuilder: knitr
+LinkingTo: Rcpp
+RoxygenNote: 7.2.3
+Encoding: UTF-8
+URL: http://github.com/1iuJT/SA23229024
+BugReports: http://github.com/1iuJT/SA23229024/issues
+
+

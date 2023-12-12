@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Liu jingtao" />
+
+<meta name="date" content="2023-12-12" />
+
+<title>Introduction to SA23229024</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to SA23229024</h1>
+<h4 class="author">Liu jingtao</h4>
+<h4 class="date">2023-12-12</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>SA23229024</strong> is a generic R package used for
+“Statistical computing” courses. Contains two R functions, That is,
+<em>Gibbs_plot</em>(performs Gibbs sampling and creates plots for the
+sampling chain.) and <em>simulate_p_values</em>(Simulate P-Values and
+Compare Correction Methods). In addition, contains two Cpp functions,
+That is, <em>gibbs_sampling_iter</em>(performs a single iteration of
+Gibbs sampling for bivariate normal distribution) and
+<em>Gibbs_sampling_cpp</em>(A Gibbs sampler using Rcpp) are used to
+accelerate the execution speed and statistical accuracy of
+<em>Gibbs_plot</em>.</p>
+<div id="background-of-simulate_p_values.r" class="section level3">
+<h3>Background of simulate_p_values.R</h3>
+<p>In statistical significance tests, researchers often test multiple
+hypotheses simultaneously. As the number of hypotheses tested increases,
+the risk of at least one Type I error (that is, a false rejection of a
+true null hypothesis) increases. To control for this error rate,
+researchers use multiple comparison correction methods. Bonferroni
+correction and Benjamini-Hochberg (B-H) correction are two widely used
+robust methods. The Bonferroni correction assigns the significance level
+to all hypothesis tests, while the B-H correction controls for the
+proportion of all findings claimed to be significant that are
+incorrectly judged to be significant, known as the false-discovery rate
+(FDR).</p>
+<p>This R function <em>simulate_p_values</em> is designed to evaluate
+the effectiveness of rejecting the null hypothesis under different
+multiple comparison correction methods, and to provide an average
+indicator of statistical performance evaluation. This function can help
+to understand the combined effect of correction methods on identifying
+true positive discovery effects under different hypothesis
+distributions.</p>
+</div>
+<div id="guidelines-of-simulate_p_values.r" class="section level3">
+<h3>Guidelines of simulate_p_values.R</h3>
+<p>The source R code for <em>simulate_p_values</em> is as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>simulate_p_values <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">m =</span> <span class="dv">1000</span>, <span class="at">M =</span> <span class="dv">1000</span>, <span class="at">pvalue_distribution_null =</span> runif,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>                              <span class="at">dist_params_null =</span> <span class="fu">list</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>                              <span class="at">pvalue_distribution_alt =</span> rbeta,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>                              <span class="at">dist_params_alt =</span> <span class="fu">list</span>(<span class="fl">0.1</span>,<span class="dv">1</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>                              <span class="at">alpha =</span> <span class="fl">0.1</span>) {</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="co"># Initialize matrices to store error rates and power</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  tdr <span class="ot">&lt;-</span> fwer <span class="ot">&lt;-</span> tpr <span class="ot">&lt;-</span> fdr <span class="ot">&lt;-</span> f1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> M) </span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>M) {</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="co"># Generate p-values: (1-alpha)*m from null and alpha*m from alternative</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    pvalue <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">do.call</span>(pvalue_distribution_null, <span class="fu">c</span>(<span class="fu">list</span>(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span>), dist_params_null)),</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>                <span class="fu">do.call</span>(pvalue_distribution_alt, <span class="fu">c</span>(<span class="fu">list</span>(m <span class="sc">/</span> <span class="dv">20</span>), dist_params_alt)))</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    <span class="co"># Bonferroni method</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>    pvalue.Bonf <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pvalue, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>) <span class="co"># Adjust p-values using Bonferroni correction</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    reject.Bonf <span class="ot">&lt;-</span> pvalue.Bonf <span class="sc">&lt;</span> alpha <span class="co"># Determine which hypotheses to reject</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="co"># Calculate true discovery rate (TDR), family-wise error rate (FWER), false discovery rate (FDR), true positive rate (TPR), and F1 score for Bonferroni method</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    tdr[<span class="dv">1</span>,j] <span class="ot">&lt;-</span>  <span class="fu">sum</span>(reject.Bonf[(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>m]) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">sum</span>(reject.Bonf), <span class="dv">1</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    fwer[<span class="dv">1</span>, j] <span class="ot">&lt;-</span> <span class="fu">any</span>(reject.Bonf[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span>)])</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>    fdr[<span class="dv">1</span>, j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(reject.Bonf[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span>)]) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">sum</span>(reject.Bonf), <span class="dv">1</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>    tpr[<span class="dv">1</span>,j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(reject.Bonf[(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>m]) <span class="sc">/</span> (m <span class="sc">/</span> <span class="dv">20</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>    f1[<span class="dv">1</span>,j] <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(tdr[<span class="dv">1</span>,j]<span class="sc">*</span>tpr[<span class="dv">1</span>,j])<span class="sc">/</span>(tdr[<span class="dv">1</span>,j]<span class="sc">+</span>tpr[<span class="dv">1</span>,j])</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>    <span class="co"># BH (Benjamini-Hochberg) method</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    pvalue.BH <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pvalue, <span class="at">method =</span> <span class="st">&quot;BH&quot;</span>) <span class="co"># Adjust p-values using Benjamini-Hochberg method</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    reject.BH <span class="ot">&lt;-</span> pvalue.BH <span class="sc">&lt;</span> alpha <span class="co"># Determine which hypotheses to reject</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="co"># Calculate TDR, FWER, FDR, TPR, and F1 score for BH method</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    tdr[<span class="dv">2</span>,j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(reject.BH[(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>m]) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">sum</span>(reject.BH), <span class="dv">1</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    fwer[<span class="dv">2</span>, j] <span class="ot">&lt;-</span> <span class="fu">any</span>(reject.BH[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span>)])</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    fdr[<span class="dv">2</span>, j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(reject.BH[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span>)]) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">sum</span>(reject.BH), <span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    tpr[<span class="dv">2</span>,j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(reject.BH[(m <span class="sc">-</span> m <span class="sc">/</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>m]) <span class="sc">/</span> (m <span class="sc">/</span> <span class="dv">20</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    f1[<span class="dv">2</span>,j] <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(tdr[<span class="dv">2</span>,j]<span class="sc">*</span>tpr[<span class="dv">2</span>,j])<span class="sc">/</span>(tdr[<span class="dv">2</span>,j]<span class="sc">+</span>tpr[<span class="dv">2</span>,j])</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  }</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>  <span class="co"># Return the mean of each metric across all simulations for both methods</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rowMeans</span>(tdr, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">rowMeans</span>(tpr, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">rowMeans</span>(fdr, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>                   <span class="fu">rowMeans</span>(fwer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">rowMeans</span>(f1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),<span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>  <span class="fu">colnames</span>(result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TDR&quot;</span>, <span class="st">&quot;TPR&quot;</span>, <span class="st">&quot;FDR&quot;</span>, <span class="st">&quot;FWER&quot;</span>, <span class="st">&quot;F1_score&quot;</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>  <span class="fu">rownames</span>(result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Bonf&quot;</span>, <span class="st">&quot;BH&quot;</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>  </span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>}</span></code></pre></div>
+<p>The R code for use <em>simulate_p_values</em> is as follows.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>) <span class="co"># for reproducibilit</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">simulate_p_values</span>(<span class="at">m =</span> <span class="dv">1000</span>, <span class="at">M =</span> <span class="dv">1000</span>, <span class="at">pvalue_distribution_null =</span> runif,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                        <span class="at">dist_params_null =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                        <span class="at">pvalue_distribution_alt =</span> rbeta,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                        <span class="at">dist_params_alt =</span> <span class="fu">list</span>(<span class="fl">0.1</span>, <span class="dv">1</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p>When using the <em>simulate_p_values</em> function, users can select
+different null hypothesis and alternative hypothesis distributions (such
+as rbeta rf rt rexp rnorm.) according to the specific context of their
+research.The R code for example is as follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>) <span class="co"># for reproducibilit</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">simulate_p_values</span>(<span class="at">m =</span> <span class="dv">1000</span>, <span class="at">M =</span> <span class="dv">1000</span>, <span class="at">pvalue_distribution_null =</span> runif,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                        <span class="at">dist_params_null =</span> <span class="fu">list</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                        <span class="at">pvalue_distribution_alt =</span> rt,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>                        <span class="at">dist_params_alt =</span> <span class="fu">list</span>(<span class="dv">10</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+</div>
+<div id="background-of-gibbs_plot.r-and-gibbs_sampling.cpp" class="section level3">
+<h3>Background of Gibbs_plot.R and Gibbs_sampling.cpp</h3>
+<p>Gibbs sampling is a Markov chain Monte Carlo (MCMC) method often used
+to generate random samples with complex distributions that are difficult
+to sample directly. This method is widely used in Bayesian statistics to
+obtain samples from a joint posterior distribution. In the context of a
+multivariate normal distribution, Gibbs sampling is particularly useful
+because it allows researchers to gradually build a sample of the entire
+multivariate normal distribution through the conditional normal
+distribution.</p>
+<p><em>Gibbs_plot</em> function implements Gibbs sampling to generate a
+bivariate normal chain with adjustable mean, unit standard deviation,
+and correlation coefficient. Then it fits a simple linear regression
+model and performs normality and variance homogeneity tests for the
+residuals. These steps are crucial for verifying the fit and prediction
+accuracy of the model.</p>
+<p>The <em>Gibbs_sampling</em> function takes advantage of the
+performance benefits of C++ and the Rcpp package by performing Gibbs
+sampling in R to generate a bivariate normal chain (Xt, Yt). This
+function implements Gibbs sampling of a bivariate normal distribution,
+generated by conditionally distributed sequential sampling (Xt, Yt).
+Compared to the Gibbs_plot function implemented in pure R, the
+_Gibbs_sampling__cpp_ function greatly improves the operation efficiency
+by migrating the calculation and sampling process to C++. This feature
+is particularly useful for large-scale simulation studies, where a large
+number of samples may need to be generated to ensure adequate
+statistical accura</p>
+</div>
+<div id="guidelines-of-simulate_p_values.r-1" class="section level3">
+<h3>Guidelines of simulate_p_values.R</h3>
+<p>The source R code for <em>Gibbs_plot</em> is as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>Gibbs_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(N, burnin, sigma, mu, <span class="at">set_seed =</span> <span class="dv">2012</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="co"># Same function body as previously provided</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(set_seed)) {</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="fu">set.seed</span>(set_seed)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  }</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  cpp_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;src&quot;</span>, <span class="st">&quot;Gibbs_sampling.cpp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;SA23229024&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="co"># 确保文件存在</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(cpp_path)) {</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Cannot find Gibbs_sampling.cpp in the src directory of the package&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  }</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="co"># Source the C++ function</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">sourceCpp</span>(cpp_path)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="co"># 进行Gibbs采样</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  chain <span class="ot">&lt;-</span> <span class="fu">Gibbs_sampling_cpp</span>(N, burnin, sigma, mu)</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  chain_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>chain[,<span class="dv">1</span>], <span class="at">y=</span>chain[,<span class="dv">2</span>])</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  <span class="co"># 绘图</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(chain_df, <span class="fu">aes</span>(<span class="at">x=</span>chain_df<span class="sc">$</span>x, <span class="at">y=</span>chain_df<span class="sc">$</span>y)) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Xt&quot;</span>, <span class="at">y=</span><span class="st">&quot;Yt&quot;</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="fu">print</span>(p)</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>  <span class="co"># 线性回归拟合</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(chain_df<span class="sc">$</span>y <span class="sc">~</span> chain_df<span class="sc">$</span>x, <span class="at">data=</span>chain_df)</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>  <span class="co"># 正态性检验</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>  resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>  shapiro_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(resids)</span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>  <span class="co"># 残差的检查</span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>  resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)</span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>  <span class="co"># 残差和方差定性检验</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>  <span class="fu">plot</span>(fit, <span class="at">which=</span><span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>  <span class="fu">plot</span>(fit, <span class="at">which=</span><span class="dv">3</span>)  <span class="co"># Scale-Location (检查异方差性)</span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>  <span class="co"># 返回线性模型拟合结果和Shapiro-Wilk测试结果</span></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">fit =</span> fit, <span class="at">shapiro =</span> shapiro_test))</span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>}</span></code></pre></div>
+<p>The source Cpp code for <em>Gibbs_plot</em> is as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>NumericMatrix Gibbs_sampling_cpp<span class="op">(</span><span class="dt">int</span> N<span class="op">,</span> <span class="dt">int</span> burnin<span class="op">,</span> NumericMatrix sigma<span class="op">,</span> NumericVector mu<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>   NumericMatrix chain<span class="op">(</span>N<span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>   chain<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="op">=</span> R<span class="op">::</span>rnorm<span class="op">(</span>mu<span class="op">(</span><span class="dv">0</span><span class="op">),</span> sigma<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>   chain<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span> <span class="op">=</span> R<span class="op">::</span>rnorm<span class="op">(</span>mu<span class="op">(</span><span class="dv">1</span><span class="op">),</span> sigma<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>   <span class="co">// Perform the Gibbs sampling</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>   <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> N <span class="op">+</span> burnin<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>     <span class="co">// For actual sample use the last row of the chain, for burn-in use the last sampled values</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>     NumericVector last_sample <span class="op">=</span> i <span class="op">&lt;</span> burnin <span class="op">?</span> NumericVector<span class="op">::</span>create<span class="op">(</span>chain<span class="op">(</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">),</span> chain<span class="op">(</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">:</span> chain<span class="op">(</span>i <span class="op">-</span> burnin<span class="op">,</span> _<span class="op">);</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>     NumericVector sample <span class="op">=</span> gibbs_sampling_iter<span class="op">(</span>last_sample<span class="op">,</span> sigma<span class="op">,</span> mu<span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>i <span class="op">&gt;=</span> burnin<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>       chain<span class="op">(</span>i <span class="op">-</span> burnin<span class="op">,</span> _<span class="op">)</span> <span class="op">=</span> sample<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  <span class="cf">return</span> chain<span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The source Cpp code for <em>Gibbs_sampling_cpp</em> is as
+follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>NumericVector gibbs_sampling_iter<span class="op">(</span><span class="at">const</span> NumericVector<span class="op">&amp;</span> last_sample<span class="op">,</span> <span class="at">const</span> NumericMatrix<span class="op">&amp;</span> sigma<span class="op">,</span> <span class="at">const</span> NumericVector<span class="op">&amp;</span> mu<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  NumericVector sample<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">double</span> sigma11 <span class="op">=</span> sigma<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">double</span> sigma12 <span class="op">=</span> sigma<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="dt">double</span> sigma22 <span class="op">=</span> sigma<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="dt">double</span> mu1 <span class="op">=</span> mu<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="dt">double</span> mu2 <span class="op">=</span> mu<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  sample<span class="op">(</span><span class="dv">0</span><span class="op">)</span> <span class="op">=</span> R<span class="op">::</span>rnorm<span class="op">(</span>mu1 <span class="op">+</span> sigma12 <span class="op">*</span> <span class="op">(</span>last_sample<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">-</span> mu2<span class="op">)</span> <span class="op">/</span> sigma22<span class="op">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>         <span class="bu">std::</span>sqrt<span class="op">(</span>sigma11 <span class="op">-</span> sigma12 <span class="op">*</span> sigma12 <span class="op">/</span> sigma22<span class="op">));</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>  sample<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">=</span> R<span class="op">::</span>rnorm<span class="op">(</span>mu2 <span class="op">+</span> sigma12 <span class="op">*</span> <span class="op">(</span>sample<span class="op">(</span><span class="dv">0</span><span class="op">)</span> <span class="op">-</span> mu1<span class="op">)</span> <span class="op">/</span> sigma11<span class="op">,</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>         <span class="bu">std::</span>sqrt<span class="op">(</span>sigma22 <span class="op">-</span> sigma12 <span class="op">*</span> sigma12 <span class="op">/</span> sigma11<span class="op">));</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>  <span class="cf">return</span> sample<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="math inline">\(Parameter setting: \quad\)</span> The
+user needs to set the number of iterations N and burnin. The burn-in
+period refers to the initial number of samples generated and discarded
+prior to actual analysis so that the chain can reach its smooth
+distribution, ensuring that subsequent sampling is not affected by
+initial conditions.</p>
+<p><span class="math inline">\(Covariance matrix and mean vector:
+\quad\)</span> The sigma parameter is set to the covariance matrix of
+the target bivariate normal distribution. In this case, the diagonal
+element is 1 (because the standard deviation is 1) and the non-diagonal
+element is 0.9 (because the correlation coefficient is 0.9). The mean
+vector mu is set to c(0,0).</p>
+<p>The R code for use <em>Gibbs_plot</em> is as follows.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Set random number seeds to ensure reproducible results</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)  </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">Gibbs_plot</span>(<span class="at">N =</span> <span class="dv">2000</span>, <span class="at">burnin =</span> <span class="dv">500</span>, <span class="at">sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.9</span>,<span class="fl">0.9</span>,<span class="dv">1</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                                                             <span class="at">nrow=</span><span class="dv">2</span>), <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># View summary information for linear models</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">summary</span>(results<span class="sc">$</span>fit)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a> <span class="co"># View the results of the Shapiro-Wilk normality test</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>results<span class="sc">$</span>shapiro</span></code></pre></div>
+<p>When using the <em>Gibbs_plot</em> function, users can select
+different mean, unit standard deviation, correlation coefficient, etc.,
+according to the specific context of their research.The R code for
+example is as follows.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Set random number seeds to ensure reproducible results</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)  </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">Gibbs_plot</span>(<span class="at">N =</span> <span class="dv">5000</span>, <span class="at">burnin =</span> <span class="dv">1000</span>, <span class="at">sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="dv">1</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                                               <span class="at">nrow=</span><span class="dv">2</span>), <span class="at">mu =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co"># View summary information for linear models</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">summary</span>(results<span class="sc">$</span>fit)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a> <span class="co"># View the results of the Shapiro-Wilk normality test</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>results<span class="sc">$</span>shapiro</span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
